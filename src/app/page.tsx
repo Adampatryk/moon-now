@@ -7,10 +7,11 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.center}>
       <Image
+          className={styles.moon}
           src={MoonSvg}
           alt="Moon"
-          width={300}
-          height={300}
+          width={500}
+          height={500}
           priority
         />
       </div>

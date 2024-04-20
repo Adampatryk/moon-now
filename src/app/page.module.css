@@ -34,10 +34,22 @@
   border-radius: var(--border-radius);
 }
 
-.code {
-  font-weight: 700;
-  font-family: var(--font-mono);
+.moon {
+  filter: drop-shadow(0 0 20px rgb(255 255 255));
+  mask-image: radial-gradient(circle at 100%, black 60%, rgba(0,0,0,.02) 80%);
+  mask-mode:alpha;
 }
+
+/* .mask {
+  mask-image: radial-gradient(circle at 100%, black 60%, rgba(0,0,0,.02) 80%);
+  mask-mode:alpha;
+}
+
+.glow {
+  -moz-box-shadow: 0 0 5px #fff;
+  -webkit-box-shadow: 0 0 5px #fff;
+  box-shadow: 0px 0px 5px #fff;
+} */
 
 .grid {
   display: grid;
