@@ -1,19 +1,23 @@
-import Image from "next/image";
-import MoonSvg from "../../public/moon.svg";
+'use client'
+
+import { useEffect, useState } from "react";
+import ShadeInput from "./components/ShadeInput";
+import MoonSvg from "./components/svg/MoonSvg";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const [shadePercentage, setShadePercentage] = useState<number>(0.1)
+
+  useEffect(() => {
+    console.log("shadePercentage:", shadePercentage);
+  }, [shadePercentage]);
+
   return (
     <main className={styles.main}>
+
+      <ShadeInput value={shadePercentage} setValue={setShadePercentage}/>
       <div className={styles.center}>
-      <Image
-          className={styles.moon}
-          src={MoonSvg}
-          alt="Moon"
-          width={500}
-          height={500}
-          priority
-        />
+        <MoonSvg shadeSide="left" shadePercentage={shadePercentage}/>
       </div>
     </main>
   );
