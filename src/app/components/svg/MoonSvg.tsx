@@ -9,12 +9,17 @@ const MoonSvg = (props: MoonSvgProps) => {
     const height = 330
 
     const viewBox = `0 0 ${width} ${height}`
+
+    // Todo: explain the following maths
+    const arcWidthRadius = width * Math.abs(props.shadePercentage - 0.5)
+    const shadeDirection = props.shadeSide === "left" ? 0 : 1
+    const arcDirection = props.shadePercentage > 0.5 ? ( props.shadeSide === 'left' ? 0 : 1 ) : ( props.shadeSide === 'left' ? 1 : 0 )
+
     const shadePath = `
         M ${width/2} 0 
-        A ${width/2} ${height/2} 0 0 0 ${width/2} ${height}
-        M ${width/2} 0 
-        A ${width/2*(props.shadePercentage)} ${height/2} 0 0 1 ${width/2} ${height}
-    `
+        A ${width/2} ${height/2} 0 0 ${shadeDirection} ${width/2} ${height}
+        A ${arcWidthRadius} ${height/2} 0 0 ${arcDirection} ${width/2} 0
+        Z`
 
     return (
         <svg
@@ -24,8 +29,16 @@ const MoonSvg = (props: MoonSvgProps) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
+            <filter id='shadow' colorInterpolationFilters="sRGB">
+                <feGaussianBlur dx="0" dy="0" stdDeviation="0 0" floodOpacity="1"/>
+            </filter>
+
+            <filter color="white" id='moonGlow' colorInterpolationFilters="sRGB">
+                <feDropShadow fill="color" color="white" dx="5" dy="5" stdDeviation="10" floodOpacity="1"/>
+            </filter> 
+
             <g id="moon">
-                <circle id="body" cx={width/2} cy={height/2} r={width/2} fill="white" />
+                <circle id="body" filter="url(#moonGlow)" cx={width/2} cy={height/2} r={width/2-5} fill="white" />
                 <g id="craters">
                     <ellipse
                     id="Ellipse 3"
@@ -75,9 +88,10 @@ const MoonSvg = (props: MoonSvgProps) => {
                 </g>
                 <path
                     id="shade"
+                    filter="url(#shadow)"
                     d={shadePath}
                     fill="black"
-                    opacity={0.8}
+                    opacity={0.5}
                 />
             </g>
         </svg>
