@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ShadeInput from "./components/ShadeInput";
 import MoonSvg from "./components/svg/MoonSvg";
+import { fetchMoonPhases } from "./lib/data";
 import { moonPhaseToDescription, moonPhaseToShadeDirection, moonPhaseToShadePercentage } from "./lib/utils";
 import styles from "./page.module.css";
 
@@ -16,6 +17,8 @@ export default function Home() {
     setShadeSide( moonPhaseToShadeDirection(moonPhase) )
     setShadePercentage( moonPhaseToShadePercentage(moonPhase) )
   }, [moonPhase])
+
+  console.log(fetchMoonPhases())
 
   return (
     <main className={styles.main}>
